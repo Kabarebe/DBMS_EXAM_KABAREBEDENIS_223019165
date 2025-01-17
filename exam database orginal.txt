@@ -1,0 +1,445 @@
+﻿mysql> create database exam;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use exam;
+Database changed
+mysql> create table client_master (clientno int(5),name varchar(20),address varchar(20),city varchar(20),state varchar(20),bal_due int(10));
+Query OK, 0 rows affected, 2 warnings (0.02 sec)
+
+mysql> insert into client_master values('1','mukama vincent','street 230','kigali','remera','2200');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into client_master values('2','patrick mboma','street 280','nyanza','rugobagoba','7500');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into client_master values('3','denis lion','street 150','kamonyi','bitusi','6000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into client_master values('4','james bond','street 200','miami','angels','3000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into client_master values('5','mary mathew','street 300','kigali','paris','8000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from client_master;
++----------+----------------+------------+---------+------------+---------+
+| clientno | name           | address    | city    | state      | bal_due |
++----------+----------------+------------+---------+------------+---------+
+|        1 | mukama vincent | street 230 | kigali  | remera     |    2200 |
+|        2 | patrick mboma  | street 280 | nyanza  | rugobagoba |    7500 |
+|        3 | denis lion     | street 150 | kamonyi | bitusi     |    6000 |
+|        4 | james bond     | street 200 | miami   | angels     |    3000 |
+|        5 | mary mathew    | street 300 | kigali  | paris      |    8000 |
++----------+----------------+------------+---------+------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from client_master where bal_due>5000;
++----------+---------------+------------+---------+------------+---------+
+| clientno | name          | address    | city    | state      | bal_due |
++----------+---------------+------------+---------+------------+---------+
+|        2 | patrick mboma | street 280 | nyanza  | rugobagoba |    7500 |
+|        3 | denis lion    | street 150 | kamonyi | bitusi     |    6000 |
+|        5 | mary mathew   | street 300 | kigali  | paris      |    8000 |
++----------+---------------+------------+---------+------------+---------+
+3 rows in set (0.01 sec)
+mysql> update client_master set bal_due='5100' where clientno='3';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from client_master;
++----------+----------------+------------+---------+------------+---------+
+| clientno | name           | address    | city    | state      | bal_due |
++----------+----------------+------------+---------+------------+---------+
+|        1 | mukama vincent | street 230 | kigali  | remera     |    2200 |
+|        2 | patrick mboma  | street 280 | nyanza  | rugobagoba |    7500 |
+|        3 | denis lion     | street 150 | kamonyi | bitusi     |    5100 |
+|        4 | james bond     | street 200 | miami   | angels     |    3000 |
+|        5 | mary mathew    | street 300 | kigali  | paris      |    8000 |
++----------+----------------+------------+---------+------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> alter table client_master change  client_master to client12 ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to client12' at line 1
+mysql> alter table client_master rename to client12 ;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>mysql> create table departments (department_id int(5),d_name varchar(20),);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> create table departments (department_id int(5),d_name varchar(20));
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> create table employees (empno int(5),emp_name varchar(20),emp_address varchar(20),emp_age int(5),emp_salary int(10));
+Query OK, 0 rows affected, 3 warnings (0.02 sec)
+
+mysql> insert into departments values('1','finance department');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into departments values('2','sales and marketing department');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into departments values('3','production department');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into departments values('4','research and development department');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into departments values('5','procurement department');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into employees values('1','gasana aime','kigali','20','200000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employees values('2','kabarebe denis','kigali','22','10000000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employees values('3','hirwa acram','nyamagabe','26','300000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employees values('4','alice mukamunana','nyanza','42','6000000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employees values('5','emmy bright','gicumbi','30','500000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> desc employees;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| empno       | int         | YES  |     | NULL    |       |
+| emp_name    | varchar(20) | YES  |     | NULL    |       |
+| emp_address | varchar(20) | YES  |     | NULL    |       |
+| emp_age     | int         | YES  |     | NULL    |       |
+| emp_salary  | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select employees.emp_name,departments.d_name from employees left outer join departments on departments.department_id=employees
+.empno ;
++------------------+----------------------+
+| emp_name         | d_name               |
++------------------+----------------------+
+| gasana aime      | finance department   |
+| kabarebe denis   | sales and marketing  |
+| hirwa acram      | production departmen |
+| alice mukamunana | research and develop |
+| emmy bright      | procurement departme |
++------------------+----------------------+
+5 rows in set (0.00 sec)
+
+mysql> select employees.emp_name,departments.d_name from employees right outer join departments on departments.department_id=employee
+s.empno ;
++------------------+----------------------+
+| emp_name         | d_name               |
++------------------+----------------------+
+| gasana aime      | finance department   |
+| kabarebe denis   | sales and marketing  |
+| hirwa acram      | production departmen |
+| alice mukamunana | research and develop |
+| emmy bright      | procurement departme |
++------------------+----------------------+
+5 rows in set (0.00 sec)
+
+mysql> select avg(emp_salary) from employees;
++-----------------+
+| avg(emp_salary) |
++-----------------+
+|    3400000.0000 |
++-----------------+
+1 row in set (0.02 sec)
+
+mysql> select * from employees where salary>{select avg(emp_salary) from employees;};
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select avg(emp_salary) from employees' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '}' at line 1
+mysql> select * from employees where salary> (select avg(emp_salary) from employees );
+ERROR 1054 (42S22): Unknown column 'salary' in 'where clause'
+mysql> select * from employees where emp_salary> (select avg(emp_salary) from employees );
++-------+------------------+-------------+---------+------------+
+| empno | emp_name         | emp_address | emp_age | emp_salary |
++-------+------------------+-------------+---------+------------+
+|     2 | kabarebe denis   | kigali      |      22 |   10000000 |
+|     4 | alice mukamunana | nyanza      |      42 |    6000000 |
++-------+------------------+-------------+---------+------------+
+2 rows in set (0.02 sec)
+
+mysql> create table student (studentid varchar(5),fullname varchar(25),gender varchar(6),age int(2),department varchar(30));
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> insert into student values('22A30','brian cyuzuzo','M','20','BIT');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values('22AB40','uwase ella','F','21','ACC');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into student values('22CB45','ihirwe darcy','M','19','MED');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into student values('22B55','ganza doreen','F','23','CS');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values('22CE03','mukiza angel','F','18','CE');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> select * from student;
++-----------+---------------+--------+------+------------+
+| studentid | fullname      | gender | age  | department |
++-----------+---------------+--------+------+------------+
+| 22A30     | brian cyuzuzo | M      |   20 | BIT        |
+| 22AB4     | uwase ella    | F      |   21 | ACC        |
+| 22CB4     | ihirwe darcy  | M      |   19 | MED        |
+| 22B55     | ganza doreen  | F      |   23 | CS         |
+| 22CE0     | mukiza angel  | F      |   18 | CE         |
++-----------+---------------+--------+------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student where gender='f';
++-----------+--------------+--------+------+------------+
+| studentid | fullname     | gender | age  | department |
++-----------+--------------+--------+------+------------+
+| 22AB4     | uwase ella   | F      |   21 | ACC        |
+| 22B55     | ganza doreen | F      |   23 | CS         |
+| 22CE0     | mukiza angel | F      |   18 | CE         |
++-----------+--------------+--------+------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student where gender='m';
++-----------+---------------+--------+------+------------+
+| studentid | fullname      | gender | age  | department |
++-----------+---------------+--------+------+------------+
+| 22A30     | brian cyuzuzo | M      |   20 | BIT        |
+| 22CB4     | ihirwe darcy  | M      |   19 | MED        |
++-----------+---------------+--------+------+------------+
+2 rows in set (0.00 sec)
+
+mysql> delete from student where age<20;
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> select * from student;
++-----------+---------------+--------+------+------------+
+| studentid | fullname      | gender | age  | department |
++-----------+---------------+--------+------+------------+
+| 22A30     | brian cyuzuzo | M      |   20 | BIT        |
+| 22AB4     | uwase ella    | F      |   21 | ACC        |
+| 22B55     | ganza doreen  | F      |   23 | CS         |
++-----------+---------------+--------+------+------------+
+3 rows in set (0.00 sec)
+
+mysql> create table employes (emp_id int(5),fname char(20),lname char(20),email varchar(30),tel varchar(15),hire_date date,job_id int(5),salary varchar(20),commision_pct varchar(10),manager_id int(5),dep_id int(5);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> create table employes (emp_id int(5),fname char(20),lname char(20),email varchar(30),tel varchar(15),hire_date date,job_id int(5),salary varchar(20),commision_pct varchar(10),manager_id int(5),dep_id int(5));
+Query OK, 0 rows affected, 4 warnings (0.03 sec)
+
+mysql> insert into employes value('1','bakame','austin','austin@.com','223070','20-dec-2021','A11','5000','270','200','50');
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+mysql> insert into employes value('2','mbabazi','jacky','jacky@.com','233071','19-jan-2021','A12','7000','250','300','60');
+Query OK, 1 row affected, 2 warnings (0.00 sec)
+
+mysql> insert into employes value('3','batamuliza','jenifer','jenifer@.com','233472','1-jan-2022','A13','3000','350','400','70');
+Query OK, 1 row affected, 2 warnings (0.00 sec)
+
+mysql> insert into employes value('5','hodl','emmet','emmet@.com','233599','1-nov-2010','A22','4800','460','700','40');
+Query OK, 1 row affected, 2 warnings (0.00 sec)
+
+mysql> insert into employes value('4','kasongo','yeye','kasongo@.com','233533','19-dec-2019','A24','8000','400','100','90');
+Query OK, 1 row affected, 2 warnings (0.00 sec)
+
+mysql> insert into employes value('6','munyemana','paul','paul@.com','233562','12-jun-2019','A23','2500','370','500','80');
+Query OK, 1 row affected, 2 warnings (0.00 sec)
+
+mysql> select emp_id,fname,lname,salary from employes;
++--------+------------+---------+--------+
+| emp_id | fname      | lname   | salary |
++--------+------------+---------+--------+
+|      1 | bakame     | austin  | 5000   |
+|      2 | mbabazi    | jacky   | 7000   |
+|      3 | batamuliza | jenifer | 3000   |
+|      6 | munyemana  | paul    | 2500   |
+|      4 | kasongo    | yeye    | 8000   |
+|      5 | hodl       | emmet   | 4800   |
++--------+------------+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employes where manager_id='100';
++--------+---------+-------+--------------+--------+------------+--------+--------+---------------+------------+--------+
+| emp_id | fname   | lname | email        | tel    | hire_date  | job_id | salary | commision_pct | manager_id | dep_id |
++--------+---------+-------+--------------+--------+------------+--------+--------+---------------+------------+--------+
+|      4 | kasongo | yeye  | kasongo@.com | 233533 | 0000-00-00 |      0 | 8000   | 400           |        100 |     90 |
++--------+---------+-------+--------------+--------+------------+--------+--------+---------------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select fname,lname from employes where salary>=4800;
++---------+--------+
+| fname   | lname  |
++---------+--------+
+| bakame  | austin |
+| mbabazi | jacky  |
+| kasongo | yeye   |
+| hodl    | emmet  |
++---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employes where lname='austin';
++--------+--------+--------+-------------+--------+------------+--------+--------+---------------+------------+--------+
+| emp_id | fname  | lname  | email       | tel    | hire_date  | job_id | salary | commision_pct | manager_id | dep_id |
++--------+--------+--------+-------------+--------+------------+--------+--------+---------------+------------+--------+
+|      1 | bakame | austin | austin@.com | 223070 | 0000-00-00 |      0 | 5000   | 270           |        200 |     50 |
++--------+--------+--------+-------------+--------+------------+--------+--------+---------------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select fname,lname from employes where dep_id between 60 and 80;
++------------+---------+
+| fname      | lname   |
++------------+---------+
+| mbabazi    | jacky   |
+| batamuliza | jenifer |
+| munyemana  | paul    |
++------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> create table sales(saleno int(10),salesname varchar(10),branch varchar(10),salesamount varchar(10),dob date);
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> insert into sales values('111','yoghurt','kamonyi brch','20-dec-09');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into sales values('111','yoghurt','kamonyi brch','3000000','20-dec-09');
+Query OK, 1 row affected, 2 warnings (0.00 sec)
+
+mysql> insert into sales values('122','matoke','nyagatare brch','5000000','15-dec-08');
+Query OK, 1 row affected, 2 warnings (0.00 sec)
+
+mysql> insert into sales values('134','banana beer','kasese brch','5750000','21-oct-10');
+Query OK, 1 row affected, 3 warnings (0.00 sec)
+
+mysql> insert into sales values('140','ice creams','kigali brch','4200000','19-apr-07');
+Query OK, 1 row affected, 2 warnings (0.00 sec)
+
+mysql> insert into sales values('151','roasted meat','rusizi brch','4234000','16-aug-06');
+Query OK, 1 row affected, 3 warnings (0.00 sec)
+
+mysql> update sales set branch='kamonyi br' where saleno='140';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select sum(salesamount) from sales where branch='kamonyi br';
++------------------+
+| sum(salesamount) |
++------------------+
+|          7200000 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> update sales set branch='kasese brc' where saleno='151';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select sum(salesamount) from sales where branch='kasese brc';
++------------------+
+| sum(salesamount) |
++------------------+
+|          9984000 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salesamount) from sales where branch='nyagatare';
++------------------+
+| sum(salesamount) |
++------------------+
+|             NULL |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salesamount) from sales where branch='kamonyi br';
++------------------+
+| avg(salesamount) |
++------------------+
+|          3600000 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salesamount) from sales where branch='kasese brc';
++------------------+
+| avg(salesamount) |
++------------------+
+|          4992000 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salesamount) from sales where branch='nyagatare';
++------------------+
+| avg(salesamount) |
++------------------+
+|             NULL |
++------------------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
